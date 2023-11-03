@@ -1,0 +1,63 @@
+
+services:
+  server:
+    image: node:16.20.0-alpine
+    environment:
+      NODE_ENV: production
+    ports:
+      - 5000:5000
+    volumes:
+      - ./server:/app/server
+    depends_on:
+      - mongo
+    working_dir: /app/server
+    command: ["sh", "-c", "yarn start"]
+
+
+
+# services:
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data/db:/data/db
+      - ./data/configdb:/data/configdb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: mod-cms
+  cms-ui:
+  # next js app
+    image: node:18-alpine
+    environment:
+      NODE_ENV: production
+    ports:
+      - 8000:3000
+    volumes:
+      - ./cms-ui:/app/cms-ui
+    working_dir: /app/cms-ui
+    depends_on:
+      - mongo
+      - mongo-express
+      # - server
+    command: ["sh", "-c", "yarn dev"]
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_SERVER: mongo
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: pass
+      ME_CONFIG_BASICAUTH_USERNAME_FILE: /run/secrets/me-config-basicauth-username
+      ME_CONFIG_BASICAUTH_PASSWORD_FILE: /run/secrets/me-config-basicauth-password
+    depends_on:
+        - mongo
+
+  
