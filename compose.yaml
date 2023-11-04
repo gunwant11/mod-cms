@@ -1,7 +1,7 @@
 
 services:
   server:
-    image: node:16.20.0-alpine
+    image: node:16.20.1-alpine
     environment:
       NODE_ENV: production
     ports:
@@ -11,7 +11,7 @@ services:
     depends_on:
       - mongo
     working_dir: /app/server
-    command: ["sh", "-c", "yarn start"]
+    command: ["sh", "-c", "yarn && yarn start"]
 
 
 
@@ -42,7 +42,7 @@ services:
       - mongo
       - mongo-express
       # - server
-    command: ["sh", "-c", "yarn dev"]
+    command: ["sh", "-c", "yarn && yarn dev"]
 
   mongo-express:
     image: mongo-express
