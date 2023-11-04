@@ -4,18 +4,15 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const app = express();
 
-// Set up CORS
 app.use(cors());
 app.use(express.json());
 
-// parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
-// Set up MongoDB connection
-mongoose.connect('mongodb://localhost/mod-cms', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+// mongoose.connect('mongodb://localhost/mod-cms', {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
 
 // Define models
 
