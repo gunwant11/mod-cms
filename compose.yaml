@@ -27,7 +27,7 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
-      MONGO_INITDB_DATABASE: mod-cms
+      MONGO_INITDB_DATABASE: mod-db
   cms-ui:
   # next js app
     image: node:18-alpine
