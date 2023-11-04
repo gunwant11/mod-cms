@@ -32,11 +32,10 @@ app.get("/", (req, res) => {
 
 // require("./app/routes/tutorial.routes")(app);
 
-// Define routes
-// app.get('/users', async (req, res) => {
-//   const users = await User.find();
-//   res.json(users);
-// });
+app.get('/users', async (req, res) => {
+  const users = await User.find();
+  res.json(users);
+});
 
 // Start server
 app.listen(5000, () => {
